@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+/* News Portal Design System - Editorial Newspaper Aesthetic */
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --background: 0 0% 100%;
+    --foreground: 220 15% 15%;
+    
+    /* Newspaper red accent */
+    --primary: 350 80% 35%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Warm grays for secondary elements */
+    --secondary: 40 10% 96%;
+    --secondary-foreground: 220 15% 20%;
+    
+    /* Muted tones */
+    --muted: 40 10% 94%;
+    --muted-foreground: 220 10% 45%;
+    
+    /* Accent - subtle warm tone */
+    --accent: 40 15% 92%;
+    --accent-foreground: 220 15% 15%;
+    
+    /* Cards and surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders and inputs */
+    --border: 220 10% 88%;
+    --input: 220 10% 88%;
+    --ring: 350 80% 35%;
+    
+    --radius: 0.375rem;
+    
+    /* Custom tokens for news portal */
+    --headline: 220 20% 10%;
+    --subheadline: 220 10% 35%;
+    --category-badge: 350 80% 35%;
+    --trending-bg: 220 20% 12%;
+    --trending-fg: 0 0% 100%;
+    --masthead: 220 20% 10%;
+    --divider: 220 10% 85%;
+    
+    /* Chatbot specific */
+    --chatbot-bg: 0 0% 100%;
+    --chatbot-border: 220 10% 88%;
+    --chatbot-header: 350 80% 35%;
+    --chatbot-user-msg: 220 15% 96%;
+    --chatbot-bot-msg: 40 15% 97%;
+    
+    /* Sidebar */
+    --sidebar-background: 40 10% 98%;
+    --sidebar-foreground: 220 15% 20%;
+    --sidebar-primary: 350 80% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 15% 94%;
+    --sidebar-accent-foreground: 220 15% 15%;
+    --sidebar-border: 220 10% 90%;
+    --sidebar-ring: 350 80% 35%;
+  }
+
+  .dark {
+    --background: 220 20% 8%;
+    --foreground: 40 10% 95%;
+    
+    --primary: 350 75% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 40 10% 90%;
+    
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
+    
+    --accent: 220 15% 20%;
+    --accent-foreground: 40 10% 95%;
+    
+    --card: 220 18% 12%;
+    --card-foreground: 40 10% 95%;
+    
+    --popover: 220 18% 12%;
+    --popover-foreground: 40 10% 95%;
+    
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 350 75% 50%;
+    
+    --headline: 40 10% 95%;
+    --subheadline: 220 10% 65%;
+    --category-badge: 350 75% 50%;
+    --trending-bg: 220 20% 6%;
+    --trending-fg: 40 10% 95%;
+    --masthead: 40 10% 95%;
+    --divider: 220 15% 25%;
+    
+    --chatbot-bg: 220 18% 12%;
+    --chatbot-border: 220 15% 25%;
+    --chatbot-header: 350 75% 45%;
+    --chatbot-user-msg: 220 15% 18%;
+    --chatbot-bot-msg: 220 12% 15%;
+    
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 40 10% 90%;
+    --sidebar-primary: 350 75% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 40 10% 90%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 350 75% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .masthead-title {
+    @apply font-serif text-masthead tracking-tight;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  .headline {
+    @apply font-serif text-headline leading-tight;
+  }
+  
+  .headline-link {
+    @apply headline hover:text-primary transition-colors duration-200;
+  }
+  
+  .subheadline {
+    @apply font-sans text-subheadline leading-relaxed;
+  }
+  
+  .category-badge {
+    @apply inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-wider;
+    @apply bg-primary text-primary-foreground;
+  }
+  
+  .trending-bar {
+    @apply bg-trending-bg text-trending-fg;
+  }
+  
+  .article-card {
+    @apply bg-card border-b border-divider pb-4 mb-4;
+  }
+  
+  .sidebar-headline {
+    @apply text-sm font-serif font-semibold text-headline leading-snug;
+    @apply hover:text-primary transition-colors cursor-pointer;
+  }
+  
+  .news-divider {
+    @apply border-t border-divider;
+  }
+  
+  .timestamp {
+    @apply text-xs text-muted-foreground font-sans;
+  }
+  
+  /* Chatbot styles */
+  .chatbot-container {
+    @apply fixed bottom-6 right-6 z-50;
+  }
+  
+  .chatbot-window {
+    @apply bg-chatbot-bg border border-chatbot-border rounded-lg shadow-2xl;
+    @apply overflow-hidden flex flex-col;
+    /* Almost full-screen chat window */
+    @apply fixed inset-4;
+  }
+
+  .chatbot-header {
+    @apply bg-chatbot-header text-primary-foreground px-4 py-3;
+    @apply flex items-center justify-between;
+  }
+  
+  .chatbot-message-user {
+    @apply bg-chatbot-user-msg rounded-lg px-3 py-2 max-w-[80%] ml-auto;
+  }
+  
+  .chatbot-message-bot {
+    /* Allow API result layout (with right-side panel) to use available width */
+    @apply bg-chatbot-bot-msg rounded-lg px-3 py-2 w-full max-w-full;
+  }
+  
+  .chatbot-fab {
+    @apply w-14 h-14 rounded-full bg-primary text-primary-foreground;
+    @apply flex items-center justify-center shadow-lg;
+    @apply hover:scale-105 transition-transform duration-200;
+  }
+}
