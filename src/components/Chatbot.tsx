@@ -66,6 +66,18 @@ const pct = (v: number | undefined | null) => {
   return `${Math.round(n * 100)}%`;
 };
 
+function parseMessageToBullets(message: string): string[][] | null {
+  if (!message) return null;
+  const sentences = message.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
+  if (sentences.length <= 1) return null;
+  // Group sentences into pairs — each pair is one bullet point
+  const bullets: string[][] = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    bullets.push(sentences.slice(i, i + 2));
+  }
+  return bullets;
+}
+
 const ApiResultView = ({ data }: { data: ApiResponse }) => {
   const items = Array.isArray(data.items) ? data.items : [];
   const [panelOpen, setPanelOpen] = useState(false);
@@ -90,7 +102,7 @@ const ApiResultView = ({ data }: { data: ApiResponse }) => {
     queryDomain && queryDomain !== "other"
       ? items.filter((it) => (it.domain || "").trim().toLowerCase() === queryDomain)
       : items;
-  const headlineItems = (domainFiltered.length > 0 ? domainFiltered : items).slice(0, 3);
+  const headlineItems = (domainFiltered.length > 0 ? domainFiltered : items).slice(0, 5);
 
   const onSelect = (it: ApiItem) => {
     if (!it?.id) return;
@@ -190,7 +202,25 @@ const ApiResultView = ({ data }: { data: ApiResponse }) => {
       <div className="flex gap-4 items-stretch">
         {/* Main content */}
         <div className="flex-1 min-w-0 bg-background border border-chatbot-border rounded-xl p-4">
-          <div className="text-sm whitespace-pre-wrap leading-relaxed">{data.message || ""}</div>
+          {(() => {
+            const bullets = parseMessageToBullets(data.message || "");
+            if (!bullets) {
+              return (
+                <div className="text-sm whitespace-pre-wrap leading-relaxed">{data.message || ""}</div>
+              );
+            }
+            return (
+              <ul className="text-sm leading-relaxed list-disc pl-5 space-y-2">
+                {bullets.map((pair: string[], i: number) => (
+                  <li key={i} className="leading-relaxed">
+                    {pair.map((sentence: string, j: number) => (
+                      <span key={j} className={j > 0 ? "block mt-1" : "block"}>{sentence}</span>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            );
+          })()}
 
           {headlineItems.length > 0 && (
             <>
